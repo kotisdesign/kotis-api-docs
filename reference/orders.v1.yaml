@@ -1,0 +1,168 @@
+openapi: 3.0.0
+info:
+  title: orders
+  version: '1.0'
+  description: ''
+servers:
+  - url: kwf.kotisdesign.com/api/v1/external/orders
+paths:
+  /create:
+    post:
+      summary: Create Order
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  order_num:
+                    type: string
+              examples:
+                example-success-response:
+                  value:
+                    status: success
+                    order_num: '5134691'
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        title:
+                          type: string
+                        detail:
+                          type: string
+              examples:
+                invalid-skus-example:
+                  value:
+                    errors:
+                      - title: Invalid Order
+                        detail: 'Sku 1 does not exist, Sku 2 does not exist'
+      operationId: post-orders-create
+      description: Creates an order
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                instructions:
+                  type: string
+                shipping_method:
+                  type: string
+                  default: Economy
+                order_id:
+                  type: string
+                gift_notes:
+                  type: string
+                  maxLength: 300
+                include_handwritten_note:
+                  type: boolean
+                skus:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      quantity:
+                        type: string
+                      sku:
+                        type: string
+                    required:
+                      - quantity
+                      - sku
+                address:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    attention:
+                      type: string
+                    address1:
+                      type: string
+                    address2:
+                      type: string
+                    city:
+                      type: string
+                    state:
+                      type: string
+                      description: "Required when country is 'United States' or 'Canada'"
+                    zip:
+                      type: string
+                      description: "Required when country is 'United States'"
+                    country:
+                      type: string
+                      default: United States
+                    phone:
+                      type: string
+                    address_type:
+                      type: string
+                  required:
+                    - name
+                    - address1
+                    - city
+                    - state
+                    - zip
+              required:
+                - email
+                - shipping_method
+                - skus
+            examples:
+              valid-order-data-example:
+                value:
+                  email: test@example.com
+                  instructions: ''
+                  shipping_method: USPS
+                  order_id: ''
+                  skus:
+                    - quantity: '3'
+                      sku: 555555-1-S
+                    - quantity: '1'
+                      sku: 555555-4-OSFA
+                  address:
+                    name: Kotis Design
+                    attention: ''
+                    address1: 2101 N 34th St
+                    address2: '#200'
+                    city: Seattle
+                    state: WA
+                    zip: '98103'
+                    country: ''
+                    phone: ''
+                    address_type: ''
+        description: ''
+    parameters: []
+  /status:
+    get:
+      summary: Order Status
+      tags: []
+      responses: {}
+      operationId: get-api-v1-external-orders-status
+    parameters: []
+components:
+  schemas: {}
+  securitySchemes:
+    API Key:
+      name: Authorization
+      type: apiKey
+      in: header
+      description: "Set the 'Authorization' header to your api key"
+security:
+  - API Key: []

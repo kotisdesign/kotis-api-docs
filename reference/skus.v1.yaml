@@ -1,0 +1,76 @@
+openapi: 3.0.0
+info:
+  title: skus
+  version: '1.0'
+  description: ''
+servers:
+  - url: kws.kotisdesign.com/api/v1/external/skus
+paths:
+  /quantity:
+    get:
+      summary: SKU Quantities
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        type:
+                          type: string
+                        attributes:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              physical_quantity:
+                                type: integer
+                              available_quantity:
+                                type: integer
+                              sku:
+                                type: string
+              examples:
+                success-response:
+                  value:
+                    data:
+                      - id: '33315'
+                        type: skus
+                        attributes:
+                          physical_quantity: 5
+                          available_quantity: 5
+                          sku: 555555-1-L
+                      - id: '33316'
+                        type: skus
+                        attributes:
+                          physical_quantity: 2000
+                          available_quantity: 1955
+                          sku: 555555-1-M
+                      - id: '33317'
+                        type: skus
+                        attributes:
+                          physical_quantity: 0
+                          available_quantity: 0
+                          sku: 555555-1-S
+                    jsonapi:
+                      version: '1.0'
+      operationId: get-quantity
+      description: Returns all SKUs and quantities
+components:
+  schemas: {}
+  securitySchemes:
+    API Key:
+      name: Authorization
+      type: apiKey
+      in: header
+      description: "Set the 'Authorization' header to your api key"
+security:
+  - API Key: []
