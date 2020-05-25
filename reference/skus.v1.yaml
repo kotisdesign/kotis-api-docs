@@ -4,7 +4,7 @@ info:
   version: '1.0'
   description: ''
 servers:
-  - url: kws.kotisdesign.com/api/v1/external/skus
+  - url: https://kwf.kotisdesign.com/api/v1/external/skus
 paths:
   /quantity:
     get:

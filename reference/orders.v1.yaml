@@ -4,7 +4,7 @@ info:
   version: '1.0'
   description: ''
 servers:
-  - url: kwf.kotisdesign.com/api/v1/external/orders
+  - url: https://kwf.kotisdesign.com/api/v1/external/orders
 paths:
   /create:
     post:
