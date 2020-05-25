@@ -4,7 +4,7 @@ info:
   version: '1.0'
   description: ''
 servers:
-  - url: https://kwf.kotisdesign.com/api/v1/external/orders
+  - url: 'https://kwf.kotisdesign.com/api/v1/external/orders'
 paths:
   /create:
     post:
@@ -55,7 +55,14 @@ paths:
                         detail: 'Sku 1 does not exist, Sku 2 does not exist'
       operationId: post-orders-create
       description: Creates an order
-      parameters: []
+      parameters:
+        - schema:
+            default: application/json
+            type: string
+          in: header
+          name: Content-Type
+          description: ''
+          required: true
       requestBody:
         content:
           application/json:
@@ -120,6 +127,8 @@ paths:
                     - city
                     - state
                     - zip
+                '':
+                  type: string
               required:
                 - email
                 - shipping_method
