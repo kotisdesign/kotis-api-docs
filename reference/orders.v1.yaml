@@ -127,8 +127,6 @@ paths:
                     - city
                     - state
                     - zip
-                '':
-                  type: string
               required:
                 - email
                 - shipping_method
